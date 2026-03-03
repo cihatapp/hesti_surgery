@@ -21,22 +21,25 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _clinicCodeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(const CheckAuthStatusEvent());
+  }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _clinicCodeController.dispose();
     super.dispose();
   }
 
   void _onLoginPressed() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthBloc>().add(
-            LoginEvent(
-              email: _emailController.text.trim(),
-              password: _passwordController.text,
+            ClinicCodeLoginEvent(
+              clinicCode: _clinicCodeController.text.trim(),
             ),
           );
     }
@@ -54,94 +57,59 @@ class _LoginPageState extends State<LoginPage> {
           }
         },
         child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: AppSpacing.xxl),
-                  // Logo or App Name
-                  Text(
-                    'Welcome Back',
-                    style: context.textTheme.headlineLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSpacing.sm),
-                  Text(
-                    'Sign in to continue',
-                    style: context.textTheme.bodyMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: AppSpacing.xxl),
-
-                  // Email Field
-                  AppTextField.email(
-                    controller: _emailController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-
-                  // Password Field
-                  AppTextField.password(
-                    controller: _passwordController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.sm),
-
-                  // Forgot Password
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        // TODO: Navigate to forgot password
-                      },
-                      child: const Text('Forgot Password?'),
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Hesti Surgery',
+                      style: context.textTheme.headlineLarge,
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-
-                  // Login Button
-                  BlocBuilder<AuthBloc, AuthState>(
-                    builder: (context, state) {
-                      return AppButton.primary(
-                        text: 'Login',
-                        isExpanded: true,
-                        isLoading: state is AuthLoading,
-                        onPressed: _onLoginPressed,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-
-                  // Register Link
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account?",
-                        style: context.textTheme.bodyMedium,
+                    const SizedBox(height: AppSpacing.xs),
+                    Text(
+                      'Klinik kodunuzu girerek devam edin',
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: context.colorScheme.onSurfaceVariant,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          context.router.push(const RegisterRoute());
-                        },
-                        child: const Text('Register'),
-                      ),
-                    ],
-                  ),
-                ],
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.xxl),
+
+                    // Clinic Code Field
+                    AppTextField(
+                      controller: _clinicCodeController,
+                      labelText: 'Klinik Kodu',
+                      hintText: 'Örn: HESTI2024',
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (_) => _onLoginPressed(),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Lütfen klinik kodunuzu girin';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: AppSpacing.xl),
+
+                    // Login Button
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        return AppButton.primary(
+                          text: 'Giriş Yap',
+                          isExpanded: true,
+                          isLoading: state is AuthLoading,
+                          onPressed: _onLoginPressed,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
