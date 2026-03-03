@@ -97,10 +97,15 @@ class _SurgeryCaseDetailView extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
 
             // Action buttons
-            Text('Actions', style: context.textTheme.titleMedium),
+            Text(
+              'ACTIONS',
+              style: context.textTheme.labelMedium?.copyWith(
+                letterSpacing: 1.2,
+              ),
+            ),
             const SizedBox(height: AppSpacing.sm),
             _ActionCard(
-              icon: Icons.camera_alt,
+              icon: Icons.camera_alt_outlined,
               title: 'Capture Photos',
               subtitle: 'Take multi-angle photos',
               onTap: () {
@@ -108,7 +113,7 @@ class _SurgeryCaseDetailView extends StatelessWidget {
               },
             ),
             _ActionCard(
-              icon: Icons.view_in_ar,
+              icon: Icons.view_in_ar_outlined,
               title: '3D Reconstruction',
               subtitle: 'Generate 3D model from photos',
               onTap: () {
@@ -116,7 +121,7 @@ class _SurgeryCaseDetailView extends StatelessWidget {
               },
             ),
             _ActionCard(
-              icon: Icons.straighten,
+              icon: Icons.straighten_outlined,
               title: 'Measurements',
               subtitle: 'Anatomical measurements',
               onTap: () {
@@ -124,7 +129,7 @@ class _SurgeryCaseDetailView extends StatelessWidget {
               },
             ),
             _ActionCard(
-              icon: Icons.picture_as_pdf,
+              icon: Icons.picture_as_pdf_outlined,
               title: 'Generate Report',
               subtitle: 'PDF report with all data',
               onTap: () {
@@ -154,9 +159,7 @@ class _SurgeryCaseDetailView extends StatelessWidget {
             width: 100,
             child: Text(
               label,
-              style: context.textTheme.bodySmall?.copyWith(
-                color: context.colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
+              style: context.textTheme.bodySmall,
             ),
           ),
           Expanded(child: Text(value)),
@@ -173,11 +176,11 @@ class _StatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (Color color, String label) = switch (status) {
-      'planning' => (Colors.blue, 'Planning'),
-      'scheduled' => (Colors.orange, 'Scheduled'),
-      'completed' => (Colors.green, 'Completed'),
-      'archived' => (Colors.grey, 'Archived'),
-      _ => (Colors.grey, status),
+      'planning' => (context.colorScheme.primary, 'Planning'),
+      'scheduled' => (const Color(0xFFD97706), 'Scheduled'),
+      'completed' => (const Color(0xFF059669), 'Completed'),
+      'archived' => (const Color(0xFF9CA3AF), 'Archived'),
+      _ => (const Color(0xFF9CA3AF), status),
     };
 
     return Chip(
@@ -205,11 +208,7 @@ class _ActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor:
-              context.colorScheme.primary.withValues(alpha: 0.1),
-          child: Icon(icon, color: context.colorScheme.primary),
-        ),
+        leading: Icon(icon, color: context.colorScheme.primary),
         title: Text(title),
         subtitle: Text(subtitle),
         trailing: const Icon(Icons.chevron_right),
