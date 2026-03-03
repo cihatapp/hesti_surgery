@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:supabase_flutter/supabase_flutter.dart' hide User;
-
 import '../../../../config/routes/app_router.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/extensions/context_extensions.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart' as auth;
 import '../bloc/model_viewer_bloc.dart';
 
 @RoutePage()
@@ -55,18 +55,18 @@ class _ModelViewerViewState extends State<_ModelViewerView> {
         actions: [
           BlocBuilder<ModelViewerBloc, ModelViewerState>(
             builder: (context, state) {
-              final hasModel = state is ModelUrlLoaded;
+              final modelUrl =
+                  state is ModelUrlLoaded ? state.url : null;
               return Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.tune),
-                    onPressed: hasModel
+                    onPressed: modelUrl != null
                         ? () {
-                            final url = (state as ModelUrlLoaded).url;
                             context.router.push(MorphingRoute(
                               modelId: widget.caseId,
-                              modelUrl: url,
+                              modelUrl: modelUrl,
                             ));
                           }
                         : null,
@@ -74,12 +74,11 @@ class _ModelViewerViewState extends State<_ModelViewerView> {
                   ),
                   IconButton(
                     icon: const Icon(Icons.compare),
-                    onPressed: hasModel
+                    onPressed: modelUrl != null
                         ? () {
-                            final url = (state as ModelUrlLoaded).url;
                             context.router.push(ComparisonRoute(
-                              originalModelUrl: url,
-                              morphedModelUrl: url,
+                              originalModelUrl: modelUrl,
+                              morphedModelUrl: modelUrl,
                             ));
                           }
                         : null,
@@ -154,8 +153,10 @@ class _ModelViewerViewState extends State<_ModelViewerView> {
                 const SizedBox(height: AppSpacing.lg),
                 ElevatedButton.icon(
                   onPressed: () {
-                    final surgeonId =
-                        Supabase.instance.client.auth.currentUser?.id ?? '';
+                    final authState = context.read<AuthBloc>().state;
+                    final surgeonId = authState is auth.Authenticated
+                        ? authState.user.id
+                        : '';
                     context.read<ModelViewerBloc>().add(
                           RequestReconstruction(
                             caseId: widget.caseId,

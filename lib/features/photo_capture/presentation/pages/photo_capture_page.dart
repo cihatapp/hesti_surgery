@@ -4,11 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/supabase/supabase_constants.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart' as auth;
 import '../bloc/photo_capture_bloc.dart';
 import '../widgets/camera_angle_guide.dart';
 
@@ -297,7 +298,8 @@ class _PhotoCaptureViewState extends State<_PhotoCaptureView> {
   void _uploadPhoto() {
     if (_capturedImage == null) return;
 
-    final surgeonId = Supabase.instance.client.auth.currentUser?.id ?? '';
+    final authState = context.read<AuthBloc>().state;
+    final surgeonId = authState is auth.Authenticated ? authState.user.id : '';
 
     context.read<PhotoCaptureBloc>().add(ProcessAndUploadPhoto(
           rawFile: File(_capturedImage!.path),
