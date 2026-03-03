@@ -112,16 +112,24 @@ class OfflineBanner extends StatelessWidget {
   }
 
   Color _getBackgroundColor(BuildContext context, ConnectivityState state) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (state.isSyncing) {
-      return Colors.blue.shade600;
+      return colorScheme.primary;
     }
     if (state.isOffline) {
-      return Colors.grey.shade700;
+      return colorScheme.onSurface;
     }
-    return Colors.green.shade600;
+    return const Color(0xFF059669);
   }
 
   Color _getTextColor(BuildContext context, ConnectivityState state) {
+    final colorScheme = Theme.of(context).colorScheme;
+    if (state.isSyncing) {
+      return colorScheme.onPrimary;
+    }
+    if (state.isOffline) {
+      return colorScheme.surface;
+    }
     return Colors.white;
   }
 }
@@ -186,16 +194,17 @@ class OfflineIndicatorDot extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ConnectivityCubit, ConnectivityState>(
       builder: (context, state) {
+        final colorScheme = Theme.of(context).colorScheme;
         Color color;
 
         if (state.isSyncing) {
-          color = Colors.blue;
+          color = colorScheme.primary;
         } else if (state.isOffline) {
-          color = Colors.red;
+          color = colorScheme.error;
         } else if (state.hasPendingOperations) {
-          color = Colors.orange;
+          color = const Color(0xFFD97706);
         } else {
-          color = Colors.green;
+          color = const Color(0xFF059669);
         }
 
         return Container(
