@@ -47,7 +47,8 @@ class SettingsPage extends StatelessWidget {
                           state.isDark ? Icons.dark_mode : Icons.light_mode,
                         ),
                         title: Text(LocaleKeys.settingsTheme.tr()),
-                        subtitle: Text(_getThemeModeName(context, state.themeMode)),
+                        subtitle:
+                            Text(_getThemeModeName(context, state.themeMode)),
                         trailing: Switch(
                           value: state.isDark,
                           onChanged: (_) {
@@ -68,78 +69,6 @@ class SettingsPage extends StatelessWidget {
                         trailing: const Icon(Icons.chevron_right),
                         onTap: () => _showLanguageDialog(context),
                       );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-
-            // Account Section
-            _buildSectionHeader(context, 'Account'),
-            Card(
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.person),
-                    title: const Text('Profile'),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      // TODO: Navigate to profile
-                    },
-                  ),
-                  const Divider(height: 1),
-                  ListTile(
-                    leading: const Icon(Icons.security),
-                    title: const Text('Security'),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      // TODO: Navigate to security settings
-                    },
-                  ),
-                  const Divider(height: 1),
-                  ListTile(
-                    leading: const Icon(Icons.notifications),
-                    title: Text(LocaleKeys.settingsNotifications.tr()),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      // TODO: Navigate to notification settings
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-
-            // About Section
-            _buildSectionHeader(context, LocaleKeys.settingsAbout.tr()),
-            Card(
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.info),
-                    title: Text(LocaleKeys.settingsAbout.tr()),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      // TODO: Navigate to about
-                    },
-                  ),
-                  const Divider(height: 1),
-                  ListTile(
-                    leading: const Icon(Icons.privacy_tip),
-                    title: Text(LocaleKeys.settingsPrivacy.tr()),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      // TODO: Open privacy policy
-                    },
-                  ),
-                  const Divider(height: 1),
-                  ListTile(
-                    leading: const Icon(Icons.description),
-                    title: Text(LocaleKeys.settingsTerms.tr()),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      // TODO: Open terms of service
                     },
                   ),
                 ],
@@ -183,8 +112,10 @@ class SettingsPage extends StatelessWidget {
         bottom: AppSpacing.sm,
       ),
       child: Text(
-        title,
-        style: context.textTheme.titleSmall,
+        title.toUpperCase(),
+        style: context.textTheme.labelMedium?.copyWith(
+          letterSpacing: 1.2,
+        ),
       ),
     );
   }
