@@ -80,24 +80,25 @@ final class LightTheme extends AppTheme {
               _textTheme.titleLarge.copyWith(color: _colors.textPrimary),
         ),
 
-        // Card
+        // Card — border instead of shadow
         cardTheme: CardThemeData(
           elevation: 0,
           color: _colors.cardBackground,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(color: _colors.divider),
           ),
         ),
 
-        // Button
+        // Elevated Button
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: _colors.primary,
             foregroundColor: _colors.onPrimary,
             elevation: 0,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
             textStyle: _textTheme.labelLarge,
           ),
@@ -106,11 +107,11 @@ final class LightTheme extends AppTheme {
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: _colors.primary,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
-            side: BorderSide(color: _colors.primary),
+            side: BorderSide(color: _colors.divider),
             textStyle: _textTheme.labelLarge,
           ),
         ),
@@ -127,23 +128,23 @@ final class LightTheme extends AppTheme {
           filled: true,
           fillColor: _colors.surface,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: _colors.divider),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: _colors.divider),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: _colors.primary, width: 2),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: _colors.error),
           ),
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           hintStyle: _textTheme.bodyMedium.copyWith(color: _colors.textHint),
         ),
 
@@ -153,7 +154,24 @@ final class LightTheme extends AppTheme {
           selectedItemColor: _colors.primary,
           unselectedItemColor: _colors.textSecondary,
           type: BottomNavigationBarType.fixed,
-          elevation: 8,
+          elevation: 0,
+        ),
+
+        // Navigation Bar (Material 3)
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: _colors.surface,
+          indicatorColor: _colors.primaryLight,
+          elevation: 0,
+          labelTextStyle: WidgetStatePropertyAll(
+            _textTheme.labelSmall.copyWith(color: _colors.textSecondary),
+          ),
+        ),
+
+        // Chip
+        chipTheme: ChipThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
 
         // Snackbar
@@ -163,7 +181,7 @@ final class LightTheme extends AppTheme {
               _textTheme.bodyMedium.copyWith(color: _colors.surface),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
 
@@ -171,7 +189,7 @@ final class LightTheme extends AppTheme {
         dialogTheme: DialogThemeData(
           backgroundColor: _colors.surface,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
 
@@ -179,7 +197,7 @@ final class LightTheme extends AppTheme {
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: _colors.primary,
           foregroundColor: _colors.onPrimary,
-          elevation: 4,
+          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
