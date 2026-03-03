@@ -9,7 +9,7 @@ class LoadingIndicator extends StatelessWidget {
     super.key,
     this.size = 40,
     this.color,
-    this.strokeWidth = 4,
+    this.strokeWidth = 3,
   });
 
   const LoadingIndicator.small({
