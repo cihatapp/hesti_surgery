@@ -2,11 +2,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_app_boilerplate/core/error/failures.dart';
-import 'package:flutter_app_boilerplate/features/auth/domain/usecases/login_user.dart';
-import 'package:flutter_app_boilerplate/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:flutter_app_boilerplate/features/auth/presentation/bloc/auth_event.dart';
-import 'package:flutter_app_boilerplate/features/auth/presentation/bloc/auth_state.dart';
+import 'package:hesti_surgery/core/error/failures.dart';
+import 'package:hesti_surgery/features/auth/domain/usecases/login_user.dart';
+import 'package:hesti_surgery/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:hesti_surgery/features/auth/presentation/bloc/auth_event.dart';
+import 'package:hesti_surgery/features/auth/presentation/bloc/auth_state.dart';
 
 import '../../../../mocks/mocks.dart';
 import '../../../../helpers/test_helpers.dart';

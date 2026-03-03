@@ -1,5 +1,5 @@
 {
-  "app_name": "Flutter Boilerplate",
+  "app_name": "Hesti Surgery",
   "common": {
     "ok": "OK",
     "cancel": "Cancel",
@@ -14,7 +14,12 @@
     "retry": "Retry",
     "error": "Error",
     "success": "Success",
-    "warning": "Warning"
+    "warning": "Warning",
+    "search": "Search",
+    "create": "Create",
+    "update": "Update",
+    "required": "Required",
+    "no_data": "No data available"
   },
   "auth": {
     "login": "Login",
@@ -28,7 +33,10 @@
     "already_have_account": "Already have an account?",
     "login_success": "Login successful",
     "register_success": "Registration successful",
-    "logout_success": "Logged out successfully"
+    "logout_success": "Logged out successfully",
+    "full_name": "Full Name",
+    "clinic_name": "Clinic Name",
+    "license_number": "License Number"
   },
   "validation": {
     "required_field": "This field is required",
@@ -37,18 +45,114 @@
     "passwords_dont_match": "Passwords don't match"
   },
   "onboarding": {
-    "title_1": "Welcome",
-    "description_1": "Discover all the features of our app",
-    "title_2": "Easy to Use",
-    "description_2": "Simple and intuitive interface",
-    "title_3": "Get Started",
-    "description_3": "Create an account and start exploring",
+    "title_1": "Welcome to Hesti Surgery",
+    "description_1": "3D surgical planning at your fingertips",
+    "title_2": "Capture & Analyze",
+    "description_2": "Multi-angle photos with AI face detection",
+    "title_3": "Plan in 3D",
+    "description_3": "Generate 3D models and morph surgical outcomes",
     "skip": "Skip",
     "get_started": "Get Started"
   },
-  "home": {
-    "title": "Home",
-    "welcome": "Welcome, {name}!"
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, Dr. {name}",
+    "quick_actions": "Quick Actions",
+    "recent_cases": "Recent Cases",
+    "no_cases": "No surgery cases yet",
+    "new_patient": "New Patient",
+    "capture": "Capture",
+    "view_3d": "3D View"
+  },
+  "patients": {
+    "title": "Patients",
+    "new_patient": "New Patient",
+    "edit_patient": "Edit Patient",
+    "no_patients": "No patients yet",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "date_of_birth": "Date of Birth",
+    "gender": "Gender",
+    "phone": "Phone",
+    "medical_notes": "Medical Notes",
+    "details": "Details",
+    "surgery_cases": "Surgery Cases"
+  },
+  "surgery_case": {
+    "title": "Surgery Case",
+    "new_case": "New Case",
+    "edit_case": "Edit Case",
+    "case_title": "Case Title",
+    "surgery_type": "Surgery Type",
+    "description": "Description",
+    "surgeon_notes": "Surgeon Notes",
+    "schedule_date": "Schedule Date",
+    "status_planning": "Planning",
+    "status_scheduled": "Scheduled",
+    "status_completed": "Completed",
+    "status_archived": "Archived",
+    "rhinoplasty": "Rhinoplasty",
+    "otoplasty": "Otoplasty",
+    "facelift": "Facelift"
+  },
+  "photo_capture": {
+    "title": "Photo Capture",
+    "capture_photos": "Capture Photos",
+    "front": "Front",
+    "left_profile": "Left Profile",
+    "right_profile": "Right Profile",
+    "three_quarter_left": "3/4 Left",
+    "three_quarter_right": "3/4 Right",
+    "base": "Base",
+    "face_detected": "Face Detected",
+    "position_face": "Position Face",
+    "processing": "Processing image...",
+    "uploading": "Uploading...",
+    "detecting_landmarks": "Detecting face landmarks...",
+    "photo_saved": "Photo saved",
+    "retake": "Retake",
+    "use_photo": "Use Photo"
+  },
+  "model_3d": {
+    "title": "3D Model",
+    "generate": "Generate 3D Model",
+    "no_model": "No 3D model yet",
+    "reconstruction_progress": "Generating 3D model...",
+    "morph": "Morph",
+    "compare": "Compare",
+    "before_after": "Before / After",
+    "split_view": "Split View",
+    "slider_view": "Slider View"
+  },
+  "morphing": {
+    "title": "Morphing",
+    "tip_projection": "Tip Projection",
+    "dorsal_hump": "Dorsal Hump",
+    "tip_rotation": "Tip Rotation",
+    "nostril_width": "Nostril Width",
+    "chin_projection": "Chin Projection",
+    "bridge_width": "Bridge Width",
+    "alar_base": "Alar Base",
+    "reset": "Reset",
+    "saved": "Morph parameters saved"
+  },
+  "measurements": {
+    "title": "Measurements",
+    "no_measurements": "No measurements yet",
+    "pre_operative": "Pre-operative",
+    "planned": "Planned",
+    "post_operative": "Post-operative",
+    "normal_range": "Normal: {min}° - {max}°",
+    "nasofrontal_angle": "Nasofrontal Angle",
+    "nasolabial_angle": "Nasolabial Angle",
+    "nasofacial_angle": "Nasofacial Angle",
+    "nasomental_angle": "Nasomental Angle"
+  },
+  "report": {
+    "title": "Report",
+    "generate_report": "Generate Report",
+    "share_report": "Share Report",
+    "qr_share": "Share via QR Code"
   },
   "settings": {
     "title": "Settings",
@@ -61,12 +165,17 @@
     "version": "Version",
     "light_theme": "Light",
     "dark_theme": "Dark",
-    "system_theme": "System"
+    "system_theme": "System",
+    "ai_model": "AI Model",
+    "ai_model_description": "Choose preferred AI model for 3D reconstruction"
   },
   "errors": {
     "server_error": "Server error. Please try again later.",
     "network_error": "No internet connection. Please check your network.",
     "unknown_error": "An unexpected error occurred.",
-    "session_expired": "Session expired. Please login again."
+    "session_expired": "Session expired. Please login again.",
+    "photo_upload_failed": "Failed to upload photo.",
+    "reconstruction_failed": "3D reconstruction failed.",
+    "low_resolution": "Image resolution too low. Minimum 1080px required."
   }
 }

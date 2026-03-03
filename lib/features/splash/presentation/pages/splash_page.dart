@@ -63,14 +63,14 @@ class _SplashPageState extends State<SplashPage> {
             children: [
               // App Logo
               Icon(
-                Icons.flutter_dash,
+                Icons.medical_services,
                 size: 100,
                 color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(height: 24),
               // App Name
               Text(
-                'Flutter Boilerplate',
+                'Hesti Surgery',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 48),

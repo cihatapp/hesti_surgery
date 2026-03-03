@@ -9,7 +9,7 @@ enum NavigationRoute {
   login,
   register,
   mainNavigation,
-  home,
+  dashboard,
   settings,
 }
 
@@ -41,8 +41,8 @@ class NavigationManager {
         return const RegisterRoute();
       case NavigationRoute.mainNavigation:
         return const MainNavigationRoute();
-      case NavigationRoute.home:
-        return const HomeRoute();
+      case NavigationRoute.dashboard:
+        return const DashboardRoute();
       case NavigationRoute.settings:
         return const SettingsRoute();
     }

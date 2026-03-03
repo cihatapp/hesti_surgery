@@ -1,5 +1,5 @@
 {
-  "app_name": "Flutter Şablon",
+  "app_name": "Hesti Surgery",
   "common": {
     "ok": "Tamam",
     "cancel": "İptal",
@@ -14,7 +14,12 @@
     "retry": "Tekrar Dene",
     "error": "Hata",
     "success": "Başarılı",
-    "warning": "Uyarı"
+    "warning": "Uyarı",
+    "search": "Ara",
+    "create": "Oluştur",
+    "update": "Güncelle",
+    "required": "Zorunlu",
+    "no_data": "Veri bulunamadı"
   },
   "auth": {
     "login": "Giriş Yap",
@@ -28,7 +33,10 @@
     "already_have_account": "Zaten hesabınız var mı?",
     "login_success": "Giriş başarılı",
     "register_success": "Kayıt başarılı",
-    "logout_success": "Çıkış yapıldı"
+    "logout_success": "Çıkış yapıldı",
+    "full_name": "Ad Soyad",
+    "clinic_name": "Klinik Adı",
+    "license_number": "Lisans Numarası"
   },
   "validation": {
     "required_field": "Bu alan zorunludur",
@@ -37,18 +45,114 @@
     "passwords_dont_match": "Şifreler eşleşmiyor"
   },
   "onboarding": {
-    "title_1": "Hoş Geldiniz",
-    "description_1": "Uygulamamızın tüm özelliklerini keşfedin",
-    "title_2": "Kullanımı Kolay",
-    "description_2": "Basit ve sezgisel arayüz",
-    "title_3": "Başlayın",
-    "description_3": "Hesap oluşturun ve keşfetmeye başlayın",
+    "title_1": "Hesti Surgery'e Hoş Geldiniz",
+    "description_1": "3D cerrahi planlama parmaklarınızın ucunda",
+    "title_2": "Çekin ve Analiz Edin",
+    "description_2": "AI yüz tespiti ile çoklu açı fotoğrafları",
+    "title_3": "3D Planlayın",
+    "description_3": "3D modeller oluşturun ve cerrahi sonuçları şekillendirin",
     "skip": "Atla",
     "get_started": "Başla"
   },
-  "home": {
-    "title": "Ana Sayfa",
-    "welcome": "Hoş geldin, {name}!"
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Hoş geldiniz, Dr. {name}",
+    "quick_actions": "Hızlı İşlemler",
+    "recent_cases": "Son Vakalar",
+    "no_cases": "Henüz cerrahi vaka yok",
+    "new_patient": "Yeni Hasta",
+    "capture": "Fotoğraf",
+    "view_3d": "3D Görünüm"
+  },
+  "patients": {
+    "title": "Hastalar",
+    "new_patient": "Yeni Hasta",
+    "edit_patient": "Hasta Düzenle",
+    "no_patients": "Henüz hasta yok",
+    "first_name": "Ad",
+    "last_name": "Soyad",
+    "date_of_birth": "Doğum Tarihi",
+    "gender": "Cinsiyet",
+    "phone": "Telefon",
+    "medical_notes": "Tıbbi Notlar",
+    "details": "Detaylar",
+    "surgery_cases": "Cerrahi Vakalar"
+  },
+  "surgery_case": {
+    "title": "Cerrahi Vaka",
+    "new_case": "Yeni Vaka",
+    "edit_case": "Vaka Düzenle",
+    "case_title": "Vaka Başlığı",
+    "surgery_type": "Ameliyat Türü",
+    "description": "Açıklama",
+    "surgeon_notes": "Cerrah Notları",
+    "schedule_date": "Planlanan Tarih",
+    "status_planning": "Planlama",
+    "status_scheduled": "Planlandı",
+    "status_completed": "Tamamlandı",
+    "status_archived": "Arşivlendi",
+    "rhinoplasty": "Rinoplasti",
+    "otoplasty": "Otoplasti",
+    "facelift": "Yüz Germe"
+  },
+  "photo_capture": {
+    "title": "Fotoğraf Çekimi",
+    "capture_photos": "Fotoğraf Çek",
+    "front": "Ön",
+    "left_profile": "Sol Profil",
+    "right_profile": "Sağ Profil",
+    "three_quarter_left": "3/4 Sol",
+    "three_quarter_right": "3/4 Sağ",
+    "base": "Taban",
+    "face_detected": "Yüz Tespit Edildi",
+    "position_face": "Yüzünüzü Konumlandırın",
+    "processing": "Görüntü işleniyor...",
+    "uploading": "Yükleniyor...",
+    "detecting_landmarks": "Yüz işaretleri tespit ediliyor...",
+    "photo_saved": "Fotoğraf kaydedildi",
+    "retake": "Tekrar Çek",
+    "use_photo": "Fotoğrafı Kullan"
+  },
+  "model_3d": {
+    "title": "3D Model",
+    "generate": "3D Model Oluştur",
+    "no_model": "Henüz 3D model yok",
+    "reconstruction_progress": "3D model oluşturuluyor...",
+    "morph": "Morfoloji",
+    "compare": "Karşılaştır",
+    "before_after": "Önce / Sonra",
+    "split_view": "Bölünmüş Görünüm",
+    "slider_view": "Kaydırıcı Görünüm"
+  },
+  "morphing": {
+    "title": "Morfoloji",
+    "tip_projection": "Burun Ucu Projeksiyonu",
+    "dorsal_hump": "Dorsal Hörgüç",
+    "tip_rotation": "Burun Ucu Rotasyonu",
+    "nostril_width": "Burun Deliği Genişliği",
+    "chin_projection": "Çene Projeksiyonu",
+    "bridge_width": "Burun Sırtı Genişliği",
+    "alar_base": "Alar Taban",
+    "reset": "Sıfırla",
+    "saved": "Morfoloji parametreleri kaydedildi"
+  },
+  "measurements": {
+    "title": "Ölçümler",
+    "no_measurements": "Henüz ölçüm yok",
+    "pre_operative": "Ameliyat Öncesi",
+    "planned": "Planlanan",
+    "post_operative": "Ameliyat Sonrası",
+    "normal_range": "Normal: {min}° - {max}°",
+    "nasofrontal_angle": "Nasofrontal Açı",
+    "nasolabial_angle": "Nasolabial Açı",
+    "nasofacial_angle": "Nasofacial Açı",
+    "nasomental_angle": "Nasomental Açı"
+  },
+  "report": {
+    "title": "Rapor",
+    "generate_report": "Rapor Oluştur",
+    "share_report": "Raporu Paylaş",
+    "qr_share": "QR Kod ile Paylaş"
   },
   "settings": {
     "title": "Ayarlar",
@@ -61,12 +165,17 @@
     "version": "Versiyon",
     "light_theme": "Açık",
     "dark_theme": "Koyu",
-    "system_theme": "Sistem"
+    "system_theme": "Sistem",
+    "ai_model": "AI Model",
+    "ai_model_description": "3D rekonstrüksiyon için tercih edilen AI modeli seçin"
   },
   "errors": {
     "server_error": "Sunucu hatası. Lütfen daha sonra tekrar deneyin.",
     "network_error": "İnternet bağlantısı yok. Lütfen ağınızı kontrol edin.",
     "unknown_error": "Beklenmeyen bir hata oluştu.",
-    "session_expired": "Oturum süresi doldu. Lütfen tekrar giriş yapın."
+    "session_expired": "Oturum süresi doldu. Lütfen tekrar giriş yapın.",
+    "photo_upload_failed": "Fotoğraf yüklenemedi.",
+    "reconstruction_failed": "3D rekonstrüksiyon başarısız oldu.",
+    "low_resolution": "Görüntü çözünürlüğü çok düşük. Minimum 1080px gerekli."
   }
 }

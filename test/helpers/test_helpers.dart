@@ -1,4 +1,4 @@
-import 'package:flutter_app_boilerplate/features/auth/domain/entities/user.dart';
+import 'package:hesti_surgery/features/auth/domain/entities/user.dart';
 
 class TestData {
   static User get testUser => User(

@@ -11,7 +11,8 @@ class MainNavigationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       routes: const [
-        HomeRoute(),
+        DashboardRoute(),
+        PatientListRoute(),
         SettingsRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
@@ -20,9 +21,14 @@ class MainNavigationPage extends StatelessWidget {
           onDestinationSelected: tabsRouter.setActiveIndex,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Home',
+              icon: Icon(Icons.dashboard_outlined),
+              selectedIcon: Icon(Icons.dashboard),
+              label: 'Dashboard',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.people_outline),
+              selectedIcon: Icon(Icons.people),
+              label: 'Patients',
             ),
             NavigationDestination(
               icon: Icon(Icons.settings_outlined),

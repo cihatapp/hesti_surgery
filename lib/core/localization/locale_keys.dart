@@ -50,10 +50,38 @@ abstract class LocaleKeys {
   static const String onboardingSkip = 'onboarding.skip';
   static const String onboardingGetStarted = 'onboarding.get_started';
 
-  // Home
-  static const String homeTitle = 'home.title';
-  /// Usage: LocaleKeys.homeWelcome.tr(namedArgs: {'name': userName})
-  static const String homeWelcome = 'home.welcome';
+  // Dashboard
+  static const String dashboardTitle = 'dashboard.title';
+  static const String dashboardWelcome = 'dashboard.welcome';
+  static const String dashboardQuickActions = 'dashboard.quick_actions';
+  static const String dashboardRecentCases = 'dashboard.recent_cases';
+
+  // Patients
+  static const String patientsTitle = 'patients.title';
+  static const String patientsNewPatient = 'patients.new_patient';
+  static const String patientsFirstName = 'patients.first_name';
+  static const String patientsLastName = 'patients.last_name';
+
+  // Surgery Case
+  static const String surgeryCaseTitle = 'surgery_case.title';
+  static const String surgeryCaseNewCase = 'surgery_case.new_case';
+
+  // Photo Capture
+  static const String photoCaptureTitle = 'photo_capture.title';
+
+  // 3D Model
+  static const String model3dTitle = 'model_3d.title';
+  static const String model3dGenerate = 'model_3d.generate';
+
+  // Morphing
+  static const String morphingTitle = 'morphing.title';
+
+  // Measurements
+  static const String measurementsTitle = 'measurements.title';
+
+  // Report
+  static const String reportTitle = 'report.title';
+  static const String reportGenerate = 'report.generate_report';
 
   // Settings
   static const String settingsTitle = 'settings.title';
@@ -67,10 +95,13 @@ abstract class LocaleKeys {
   static const String settingsLightTheme = 'settings.light_theme';
   static const String settingsDarkTheme = 'settings.dark_theme';
   static const String settingsSystemTheme = 'settings.system_theme';
+  static const String settingsAiModel = 'settings.ai_model';
 
   // Errors
   static const String errorsServerError = 'errors.server_error';
   static const String errorsNetworkError = 'errors.network_error';
   static const String errorsUnknownError = 'errors.unknown_error';
   static const String errorsSessionExpired = 'errors.session_expired';
+  static const String errorsPhotoUploadFailed = 'errors.photo_upload_failed';
+  static const String errorsReconstructionFailed = 'errors.reconstruction_failed';
 }

@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/network/dio_client.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_local_datasource.dart';
@@ -11,12 +10,10 @@ import '../datasources/auth_remote_datasource.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   final AuthLocalDataSource localDataSource;
-  final DioClient dioClient;
 
   AuthRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
-    required this.dioClient,
   });
 
   @override
@@ -30,16 +27,12 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
 
-      // Save tokens
+      // Save tokens (Supabase manages its own session, but we cache for offline)
       await localDataSource.saveTokens(
         accessToken: result.accessToken,
         refreshToken: result.refreshToken,
       );
 
-      // Set auth token for future requests
-      dioClient.setAuthToken(result.accessToken);
-
-      // Save user
       await localDataSource.saveUser(result.user);
 
       return Right(result.user.toEntity());
@@ -65,16 +58,11 @@ class AuthRepositoryImpl implements AuthRepository {
         name: name,
       );
 
-      // Save tokens
       await localDataSource.saveTokens(
         accessToken: result.accessToken,
         refreshToken: result.refreshToken,
       );
 
-      // Set auth token for future requests
-      dioClient.setAuthToken(result.accessToken);
-
-      // Save user
       await localDataSource.saveUser(result.user);
 
       return Right(result.user.toEntity());
@@ -91,13 +79,6 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, User?>> getCurrentUser() async {
     try {
       final user = await localDataSource.getUser();
-      if (user != null) {
-        // Restore auth token
-        final token = await localDataSource.getAccessToken();
-        if (token != null) {
-          dioClient.setAuthToken(token);
-        }
-      }
       return Right(user?.toEntity());
     } on CacheException catch (e) {
       return Left(CacheFailure(message: e.message));
@@ -109,23 +90,14 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, Unit>> logout() async {
     try {
-      // Call remote logout (best effort)
       await remoteDataSource.logout();
-
-      // Clear local data
       await localDataSource.clearAll();
-
-      // Clear auth token
-      dioClient.clearAuthToken();
-
       return const Right(unit);
     } on CacheException catch (e) {
       return Left(CacheFailure(message: e.message));
     } catch (e) {
-      // Even if remote logout fails, we should clear local data
       try {
         await localDataSource.clearAll();
-        dioClient.clearAuthToken();
       } catch (_) {}
       return const Right(unit);
     }

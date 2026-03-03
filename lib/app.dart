@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           return ConnectivityListener(
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'Flutter Boilerplate',
+              title: 'Hesti Surgery',
               // Localization
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
