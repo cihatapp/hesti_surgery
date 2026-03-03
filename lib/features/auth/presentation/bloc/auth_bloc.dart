@@ -8,6 +8,15 @@ import '../../domain/usecases/register_user.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
+/// Klinik kodu → Supabase test hesap bilgileri
+const _clinicCredentials = {
+  'HESTI2024': (
+    email: 'test@hesti.app',
+    password: 'Hesti2024Test!',
+    name: 'Dr. Test Kullanıcı',
+  ),
+};
+
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUser loginUser;
   final RegisterUser registerUser;
@@ -23,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
     on<LoginEvent>(_onLogin);
     on<RegisterEvent>(_onRegister);
+    on<ClinicCodeLoginEvent>(_onClinicCodeLogin);
     on<LogoutEvent>(_onLogout);
   }
 
@@ -76,6 +86,49 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
 
     result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (user) => emit(Authenticated(user)),
+    );
+  }
+
+  Future<void> _onClinicCodeLogin(
+    ClinicCodeLoginEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+
+    final code = event.clinicCode.trim().toUpperCase();
+    final creds = _clinicCredentials[code];
+
+    if (creds == null) {
+      emit(const AuthError('Geçersiz klinik kodu'));
+      return;
+    }
+
+    // Önce giriş dene
+    final loginResult = await loginUser(LoginParams(
+      email: creds.email,
+      password: creds.password,
+    ));
+
+    final user = loginResult.fold(
+      (failure) => null,
+      (user) => user,
+    );
+
+    if (user != null) {
+      emit(Authenticated(user));
+      return;
+    }
+
+    // Giriş başarısız → kullanıcı henüz yok, kayıt ol
+    final registerResult = await registerUser(RegisterParams(
+      email: creds.email,
+      password: creds.password,
+      name: creds.name,
+    ));
+
+    registerResult.fold(
       (failure) => emit(AuthError(failure.message)),
       (user) => emit(Authenticated(user)),
     );
