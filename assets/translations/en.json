@@ -1,5 +1,5 @@
 {
-  "app_name": "Hesti Surgery",
+  "app_name": "Hesti 3D",
   "common": {
     "ok": "OK",
     "cancel": "Cancel",
@@ -43,16 +43,6 @@
     "invalid_email": "Please enter a valid email",
     "password_too_short": "Password must be at least 6 characters",
     "passwords_dont_match": "Passwords don't match"
-  },
-  "onboarding": {
-    "title_1": "Welcome to Hesti Surgery",
-    "description_1": "3D surgical planning at your fingertips",
-    "title_2": "Capture & Analyze",
-    "description_2": "Multi-angle photos with AI face detection",
-    "title_3": "Plan in 3D",
-    "description_3": "Generate 3D models and morph surgical outcomes",
-    "skip": "Skip",
-    "get_started": "Get Started"
   },
   "dashboard": {
     "title": "Dashboard",

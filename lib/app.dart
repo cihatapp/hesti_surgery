@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           return ConnectivityListener(
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'Hesti Surgery',
+              title: 'Hesti 3D',
               // Localization
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,

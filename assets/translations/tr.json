@@ -1,5 +1,5 @@
 {
-  "app_name": "Hesti Surgery",
+  "app_name": "Hesti 3D",
   "common": {
     "ok": "Tamam",
     "cancel": "İptal",
@@ -43,16 +43,6 @@
     "invalid_email": "Geçerli bir e-posta girin",
     "password_too_short": "Şifre en az 6 karakter olmalı",
     "passwords_dont_match": "Şifreler eşleşmiyor"
-  },
-  "onboarding": {
-    "title_1": "Hesti Surgery'e Hoş Geldiniz",
-    "description_1": "3D cerrahi planlama parmaklarınızın ucunda",
-    "title_2": "Çekin ve Analiz Edin",
-    "description_2": "AI yüz tespiti ile çoklu açı fotoğrafları",
-    "title_3": "3D Planlayın",
-    "description_3": "3D modeller oluşturun ve cerrahi sonuçları şekillendirin",
-    "skip": "Atla",
-    "get_started": "Başla"
   },
   "dashboard": {
     "title": "Panel",
