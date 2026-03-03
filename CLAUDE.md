@@ -89,11 +89,11 @@ feature_name/
     └── widgets/         # Feature-specific UI components
 ```
 
-**Implemented features:** auth, patient, surgery_case, photo_capture, model_3d, measurements, dashboard, settings, home, main_navigation, splash, onboarding, report.
+**Implemented features:** auth, patient, surgery_case, photo_capture, model_3d, measurements, dashboard, settings, home, main_navigation, report.
 
 ## Routing
 
-Auto_route with code generation. Router defined in `lib/config/routes/app_router.dart`, generates `app_router.gr.dart`. Route flow: Splash → Onboarding → Login/Register → MainNavigation (Dashboard, PatientList, Settings tabs).
+Auto_route with code generation. Router defined in `lib/config/routes/app_router.dart`, generates `app_router.gr.dart`. Route flow: Login → MainNavigation (Dashboard, PatientList, Settings tabs).
 
 After modifying routes, run `dart run build_runner build --delete-conflicting-outputs`.
 
