@@ -128,7 +128,7 @@ class _ModelViewerViewState extends State<_ModelViewerView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                  Icon(Icons.error_outline, size: 48, color: context.colorScheme.error),
                   const SizedBox(height: AppSpacing.md),
                   Text(state.message, textAlign: TextAlign.center),
                 ],
