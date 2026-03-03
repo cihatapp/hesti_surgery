@@ -6,11 +6,11 @@ abstract class AppSpacing {
   static const double xxs = unit; // 4px
   static const double xs = unit * 2; // 8px
   static const double sm = unit * 3; // 12px
-  static const double md = unit * 4; // 16px
-  static const double lg = unit * 6; // 24px
-  static const double xl = unit * 8; // 32px
-  static const double xxl = unit * 12; // 48px
-  static const double xxxl = unit * 16; // 64px
+  static const double md = unit * 5; // 20px
+  static const double lg = unit * 7; // 28px
+  static const double xl = unit * 10; // 40px
+  static const double xxl = unit * 14; // 56px
+  static const double xxxl = unit * 20; // 80px
 
   // Screen padding
   static const double screenPadding = md;
@@ -36,9 +36,9 @@ abstract class AppSpacing {
   static const double iconSizeXLarge = 48.0;
 
   // Border radius
-  static const double radiusSmall = 4.0;
-  static const double radiusMedium = 8.0;
-  static const double radiusLarge = 12.0;
-  static const double radiusXLarge = 16.0;
+  static const double radiusSmall = 8.0;
+  static const double radiusMedium = 12.0;
+  static const double radiusLarge = 16.0;
+  static const double radiusXLarge = 20.0;
   static const double radiusRound = 999.0;
 }

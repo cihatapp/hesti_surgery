@@ -67,7 +67,7 @@ class AppTextField extends StatefulWidget {
         inputFormatters = null,
         maxLines = 1,
         maxLength = null,
-        prefixIcon = const Icon(Icons.email_outlined),
+        prefixIcon = null,
         suffixIcon = null;
 
   const AppTextField.password({
@@ -90,7 +90,7 @@ class AppTextField extends StatefulWidget {
         inputFormatters = null,
         maxLines = 1,
         maxLength = null,
-        prefixIcon = const Icon(Icons.lock_outlined),
+        prefixIcon = null,
         suffixIcon = null;
 
   @override
