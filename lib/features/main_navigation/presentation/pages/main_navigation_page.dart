@@ -16,24 +16,34 @@ class MainNavigationPage extends StatelessWidget {
         SettingsRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
-        return NavigationBar(
-          selectedIndex: tabsRouter.activeIndex,
-          onDestinationSelected: tabsRouter.setActiveIndex,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.dashboard_outlined),
-              selectedIcon: Icon(Icons.dashboard),
-              label: 'Dashboard',
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Divider(
+              height: 0.5,
+              thickness: 0.5,
+              color: Theme.of(context).dividerColor,
             ),
-            NavigationDestination(
-              icon: Icon(Icons.people_outline),
-              selectedIcon: Icon(Icons.people),
-              label: 'Patients',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.settings_outlined),
-              selectedIcon: Icon(Icons.settings),
-              label: 'Settings',
+            NavigationBar(
+              selectedIndex: tabsRouter.activeIndex,
+              onDestinationSelected: tabsRouter.setActiveIndex,
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.dashboard_outlined),
+                  selectedIcon: Icon(Icons.dashboard),
+                  label: 'Dashboard',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.people_outline),
+                  selectedIcon: Icon(Icons.people),
+                  label: 'Patients',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.settings_outlined),
+                  selectedIcon: Icon(Icons.settings),
+                  label: 'Settings',
+                ),
+              ],
             ),
           ],
         );
