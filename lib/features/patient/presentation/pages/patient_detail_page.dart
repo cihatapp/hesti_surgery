@@ -70,9 +70,14 @@ class _PatientDetailView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () => context.router.push(
-              PatientFormRoute(patientId: patient.id),
-            ),
+            onPressed: () async {
+              await context.router.push(
+                PatientFormRoute(patientId: patient.id),
+              );
+              if (context.mounted) {
+                context.read<PatientListBloc>().add(const LoadPatients());
+              }
+            },
           ),
         ],
       ),
@@ -81,78 +86,72 @@ class _PatientDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Patient info card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor:
-                          context.colorScheme.primary.withValues(alpha: 0.1),
-                      child: Text(
-                        patient.firstName[0].toUpperCase(),
-                        style: context.textTheme.headlineMedium?.copyWith(
-                          color: context.colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    Text(
-                      patient.fullName,
-                      style: context.textTheme.titleLarge,
-                    ),
-                    if (patient.age != null)
-                      Text(
-                        '${patient.age} years old',
-                        style: context.textTheme.bodyMedium,
-                      ),
-                  ],
-                ),
-              ),
+            // Patient name + age — simple left-aligned
+            Text(
+              patient.fullName,
+              style: context.textTheme.headlineSmall,
             ),
-            const SizedBox(height: AppSpacing.md),
+            if (patient.age != null)
+              Text(
+                '${patient.age} years old',
+                style: context.textTheme.bodyMedium,
+              ),
+            const SizedBox(height: AppSpacing.lg),
 
-            // Details card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Details', style: context.textTheme.titleMedium),
-                    const Divider(),
-                    if (patient.gender != null)
-                      _infoRow(context, 'Gender', patient.gender!),
-                    if (patient.phone != null)
-                      _infoRow(context, 'Phone', patient.phone!),
-                    if (patient.email != null)
-                      _infoRow(context, 'Email', patient.email!),
-                    if (patient.medicalNotes != null &&
-                        patient.medicalNotes!.isNotEmpty)
-                      _infoRow(context, 'Notes', patient.medicalNotes!),
-                  ],
-                ),
+            // Details — flat list with dividers
+            Text(
+              'DETAILS',
+              style: context.textTheme.labelMedium?.copyWith(
+                letterSpacing: 1.2,
               ),
             ),
+            const SizedBox(height: AppSpacing.sm),
+            if (patient.gender != null) ...[
+              _infoRow(context, 'Gender', patient.gender!),
+              const Divider(),
+            ],
+            if (patient.phone != null) ...[
+              _infoRow(context, 'Phone', patient.phone!),
+              const Divider(),
+            ],
+            if (patient.email != null) ...[
+              _infoRow(context, 'Email', patient.email!),
+              const Divider(),
+            ],
+            if (patient.medicalNotes != null &&
+                patient.medicalNotes!.isNotEmpty) ...[
+              _infoRow(context, 'Notes', patient.medicalNotes!),
+              const Divider(),
+            ],
             const SizedBox(height: AppSpacing.md),
 
             // Surgery cases
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Surgery Cases', style: context.textTheme.titleMedium),
-                TextButton.icon(
-                  onPressed: () => context.router.push(
-                    SurgeryCaseFormRoute(patientId: patient.id),
+                Text(
+                  'SURGERY CASES',
+                  style: context.textTheme.labelMedium?.copyWith(
+                    letterSpacing: 1.2,
                   ),
+                ),
+                TextButton.icon(
+                  onPressed: () async {
+                    await context.router.push(
+                      SurgeryCaseFormRoute(patientId: patient.id),
+                    );
+                    if (context.mounted) {
+                      context.read<SurgeryCaseBloc>().add(
+                            LoadSurgeryCases(patientId: patientId),
+                          );
+                    }
+                  },
                   icon: const Icon(Icons.add, size: 18),
                   label: const Text('New Case'),
                 ),
               ],
             ),
-            const SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.xs),
             BlocBuilder<SurgeryCaseBloc, SurgeryCaseState>(
               builder: (context, state) {
                 if (state is SurgeryCaseLoading) {
@@ -160,16 +159,14 @@ class _PatientDetailView extends StatelessWidget {
                 }
                 if (state is SurgeryCaseListLoaded) {
                   if (state.cases.isEmpty) {
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(AppSpacing.lg),
-                        child: Center(
-                          child: Text(
-                            'No surgery cases yet',
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.colorScheme.onSurface
-                                  .withValues(alpha: 0.5),
-                            ),
+                    return Padding(
+                      padding: const EdgeInsets.all(AppSpacing.lg),
+                      child: Center(
+                        child: Text(
+                          'No surgery cases yet',
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onSurface
+                                .withValues(alpha: 0.5),
                           ),
                         ),
                       ),
@@ -177,9 +174,23 @@ class _PatientDetailView extends StatelessWidget {
                   }
                   return Column(
                     children: state.cases.map((c) {
+                      final Color statusColor = switch (c.status) {
+                        'planning' => context.colorScheme.primary,
+                        'scheduled' => const Color(0xFFD97706),
+                        'completed' => const Color(0xFF059669),
+                        'archived' => const Color(0xFF9CA3AF),
+                        _ => const Color(0xFF9CA3AF),
+                      };
                       return Card(
                         child: ListTile(
-                          leading: _statusIcon(context, c.status),
+                          leading: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: statusColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
                           title: Text(c.title),
                           subtitle: Text(c.status.toUpperCase()),
                           trailing: const Icon(Icons.chevron_right),
@@ -210,28 +221,19 @@ class _PatientDetailView extends StatelessWidget {
             width: 80,
             child: Text(
               label,
-              style: context.textTheme.bodySmall?.copyWith(
-                color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+              style: context.textTheme.bodySmall,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: context.colorScheme.onSurface,
               ),
             ),
           ),
-          Expanded(child: Text(value, style: context.textTheme.bodyMedium)),
         ],
       ),
-    );
-  }
-
-  Widget _statusIcon(BuildContext context, String status) {
-    final (IconData icon, Color color) = switch (status) {
-      'planning' => (Icons.edit_note, Colors.blue),
-      'scheduled' => (Icons.calendar_today, Colors.orange),
-      'completed' => (Icons.check_circle, Colors.green),
-      'archived' => (Icons.archive, Colors.grey),
-      _ => (Icons.circle, Colors.grey),
-    };
-    return CircleAvatar(
-      backgroundColor: color.withValues(alpha: 0.1),
-      child: Icon(icon, color: color, size: 20),
     );
   }
 }

@@ -39,13 +39,23 @@ class _DashboardView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome header
+            // Welcome text
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is Authenticated) {
-                  return _WelcomeCard(
-                    name: state.user.name ?? state.user.email,
-                    clinicName: state.user.clinicName,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hello, Dr. ${state.user.name ?? state.user.email}',
+                        style: context.textTheme.headlineSmall,
+                      ),
+                      if (state.user.clinicName != null)
+                        Text(
+                          state.user.clinicName!,
+                          style: context.textTheme.bodyMedium,
+                        ),
+                    ],
                   );
                 }
                 return const SizedBox.shrink();
@@ -54,37 +64,36 @@ class _DashboardView extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
 
             // Quick actions
-            Text('Quick Actions', style: context.textTheme.titleMedium),
+            Text(
+              'QUICK ACTIONS',
+              style: context.textTheme.labelMedium?.copyWith(
+                letterSpacing: 1.2,
+              ),
+            ),
             const SizedBox(height: AppSpacing.sm),
             Row(
               children: [
                 Expanded(
                   child: _QuickActionCard(
-                    icon: Icons.person_add,
+                    icon: Icons.person_add_outlined,
                     title: 'New Patient',
-                    color: Colors.blue,
-                    onTap: () => context.router.push(PatientFormRoute()),
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Expanded(
-                  child: _QuickActionCard(
-                    icon: Icons.camera_alt,
-                    title: 'Capture',
-                    color: Colors.green,
-                    onTap: () {
-                      context.router.push(PatientListRoute());
+                    onTap: () async {
+                      await context.router.push(PatientFormRoute());
+                      if (context.mounted) {
+                        context
+                            .read<SurgeryCaseBloc>()
+                            .add(const LoadSurgeryCases());
+                      }
                     },
                   ),
                 ),
-                const SizedBox(width: AppSpacing.md),
+                const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: _QuickActionCard(
-                    icon: Icons.view_in_ar,
+                    icon: Icons.view_in_ar_outlined,
                     title: '3D View',
-                    color: Colors.purple,
                     onTap: () {
-                      context.router.push(PatientListRoute());
+                      context.router.push(const PatientListRoute());
                     },
                   ),
                 ),
@@ -96,14 +105,19 @@ class _DashboardView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recent Cases', style: context.textTheme.titleMedium),
+                Text(
+                  'RECENT CASES',
+                  style: context.textTheme.labelMedium?.copyWith(
+                    letterSpacing: 1.2,
+                  ),
+                ),
                 TextButton(
                   onPressed: () {},
                   child: const Text('View All'),
                 ),
               ],
             ),
-            const SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.xs),
             BlocBuilder<SurgeryCaseBloc, SurgeryCaseState>(
               builder: (context, state) {
                 if (state is SurgeryCaseLoading) {
@@ -141,9 +155,16 @@ class _DashboardView extends StatelessWidget {
                         .take(5)
                         .map((c) => _RecentCaseCard(
                               surgeryCase: c,
-                              onTap: () => context.router.push(
-                                SurgeryCaseDetailRoute(caseId: c.id),
-                              ),
+                              onTap: () async {
+                                await context.router.push(
+                                  SurgeryCaseDetailRoute(caseId: c.id),
+                                );
+                                if (context.mounted) {
+                                  context
+                                      .read<SurgeryCaseBloc>()
+                                      .add(const LoadSurgeryCases());
+                                }
+                              },
                             ))
                         .toList(),
                   );
@@ -158,67 +179,14 @@ class _DashboardView extends StatelessWidget {
   }
 }
 
-class _WelcomeCard extends StatelessWidget {
-  final String name;
-  final String? clinicName;
-
-  const _WelcomeCard({required this.name, this.clinicName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: context.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 28,
-              backgroundColor: Colors.white.withValues(alpha: 0.2),
-              child: Icon(
-                Icons.medical_services,
-                color: context.colorScheme.onPrimary,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Welcome, Dr. $name',
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: context.colorScheme.onPrimary,
-                    ),
-                  ),
-                  if (clinicName != null)
-                    Text(
-                      clinicName!,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color:
-                            context.colorScheme.onPrimary.withValues(alpha: 0.8),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _QuickActionCard extends StatelessWidget {
   final IconData icon;
   final String title;
-  final Color color;
   final VoidCallback onTap;
 
   const _QuickActionCard({
     required this.icon,
     required this.title,
-    required this.color,
     required this.onTap,
   });
 
@@ -227,7 +195,7 @@ class _QuickActionCard extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: AppSpacing.md,
@@ -235,14 +203,15 @@ class _QuickActionCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              CircleAvatar(
-                backgroundColor: color.withValues(alpha: 0.1),
-                child: Icon(icon, color: color, size: 22),
+              Icon(
+                icon,
+                color: context.colorScheme.primary,
+                size: 28,
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
                 title,
-                style: context.textTheme.labelSmall,
+                style: context.textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -261,23 +230,27 @@ class _RecentCaseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (Color color, IconData icon) = switch (surgeryCase.status) {
-      'planning' => (Colors.blue, Icons.edit_note),
-      'scheduled' => (Colors.orange, Icons.calendar_today),
-      'completed' => (Colors.green, Icons.check_circle),
-      'archived' => (Colors.grey, Icons.archive),
-      _ => (Colors.grey, Icons.circle),
+    final Color statusColor = switch (surgeryCase.status) {
+      'planning' => context.colorScheme.primary,
+      'scheduled' => const Color(0xFFD97706),
+      'completed' => const Color(0xFF059669),
+      'archived' => const Color(0xFF9CA3AF),
+      _ => const Color(0xFF9CA3AF),
     };
 
     return Card(
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: color.withValues(alpha: 0.1),
-          child: Icon(icon, color: color, size: 20),
+        leading: Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+            color: statusColor,
+            shape: BoxShape.circle,
+          ),
         ),
         title: Text(surgeryCase.title),
         subtitle: Text(
-          '${surgeryCase.surgeryType} - ${surgeryCase.status}',
+          '${surgeryCase.surgeryType} \u00B7 ${surgeryCase.status}',
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,

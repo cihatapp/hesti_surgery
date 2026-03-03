@@ -21,20 +21,27 @@ class PatientListPage extends StatelessWidget {
   }
 }
 
-class _PatientListView extends StatelessWidget {
+class _PatientListView extends StatefulWidget {
   const _PatientListView();
+
+  @override
+  State<_PatientListView> createState() => _PatientListViewState();
+}
+
+class _PatientListViewState extends State<_PatientListView> {
+  final _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Patients'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => _showSearch(context),
-          ),
-        ],
       ),
       body: BlocConsumer<PatientListBloc, PatientListState>(
         listener: (context, state) {
@@ -89,18 +96,74 @@ class _PatientListView extends StatelessWidget {
               onRefresh: () async {
                 context.read<PatientListBloc>().add(const LoadPatients());
               },
-              child: ListView.builder(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                itemCount: state.patients.length,
-                itemBuilder: (context, index) {
-                  final patient = state.patients[index];
-                  return PatientCard(
-                    patient: patient,
-                    onTap: () => context.router.push(
-                      PatientDetailRoute(patientId: patient.id),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      AppSpacing.sm,
+                      AppSpacing.md,
+                      AppSpacing.xs,
                     ),
-                  );
-                },
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search patients...',
+                        prefixIcon: const Icon(Icons.search, size: 20),
+                        suffixIcon: ValueListenableBuilder<TextEditingValue>(
+                          valueListenable: _searchController,
+                          builder: (_, value, __) {
+                            if (value.text.isEmpty) {
+                              return const SizedBox.shrink();
+                            }
+                            return IconButton(
+                              icon: const Icon(Icons.clear, size: 18),
+                              onPressed: () {
+                                _searchController.clear();
+                                context
+                                    .read<PatientListBloc>()
+                                    .add(const LoadPatients());
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                      onChanged: (query) {
+                        if (query.isEmpty) {
+                          context
+                              .read<PatientListBloc>()
+                              .add(const LoadPatients());
+                        } else {
+                          context
+                              .read<PatientListBloc>()
+                              .add(SearchPatientsEvent(query));
+                        }
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(AppSpacing.md),
+                      itemCount: state.patients.length,
+                      itemBuilder: (context, index) {
+                        final patient = state.patients[index];
+                        return PatientCard(
+                          patient: patient,
+                          onTap: () async {
+                            await context.router.push(
+                              PatientDetailRoute(patientId: patient.id),
+                            );
+                            if (context.mounted) {
+                              context
+                                  .read<PatientListBloc>()
+                                  .add(const LoadPatients());
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             );
           }
@@ -108,69 +171,14 @@ class _PatientListView extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.router.push(PatientFormRoute()),
+        onPressed: () async {
+          await context.router.push(PatientFormRoute());
+          if (context.mounted) {
+            context.read<PatientListBloc>().add(const LoadPatients());
+          }
+        },
         child: const Icon(Icons.add),
       ),
     );
   }
-
-  void _showSearch(BuildContext context) {
-    final bloc = context.read<PatientListBloc>();
-    showSearch(
-      context: context,
-      delegate: _PatientSearchDelegate(bloc),
-    );
-  }
-}
-
-class _PatientSearchDelegate extends SearchDelegate<String?> {
-  final PatientListBloc bloc;
-
-  _PatientSearchDelegate(this.bloc);
-
-  @override
-  List<Widget> buildActions(BuildContext context) => [
-        IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: () => query = '',
-        ),
-      ];
-
-  @override
-  Widget buildLeading(BuildContext context) => IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => close(context, null),
-      );
-
-  @override
-  Widget buildResults(BuildContext context) {
-    bloc.add(SearchPatientsEvent(query));
-    return BlocBuilder<PatientListBloc, PatientListState>(
-      bloc: bloc,
-      builder: (context, state) {
-        if (state is PatientListLoaded) {
-          return ListView.builder(
-            padding: const EdgeInsets.all(AppSpacing.md),
-            itemCount: state.patients.length,
-            itemBuilder: (context, index) {
-              final patient = state.patients[index];
-              return PatientCard(
-                patient: patient,
-                onTap: () {
-                  close(context, null);
-                  context.router.push(
-                    PatientDetailRoute(patientId: patient.id),
-                  );
-                },
-              );
-            },
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) => buildResults(context);
 }
