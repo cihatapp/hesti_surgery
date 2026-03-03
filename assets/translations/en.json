@@ -1,0 +1,72 @@
+{
+  "app_name": "Flutter Boilerplate",
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "loading": "Loading...",
+    "retry": "Retry",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "forgot_password": "Forgot Password?",
+    "dont_have_account": "Don't have an account?",
+    "already_have_account": "Already have an account?",
+    "login_success": "Login successful",
+    "register_success": "Registration successful",
+    "logout_success": "Logged out successfully"
+  },
+  "validation": {
+    "required_field": "This field is required",
+    "invalid_email": "Please enter a valid email",
+    "password_too_short": "Password must be at least 6 characters",
+    "passwords_dont_match": "Passwords don't match"
+  },
+  "onboarding": {
+    "title_1": "Welcome",
+    "description_1": "Discover all the features of our app",
+    "title_2": "Easy to Use",
+    "description_2": "Simple and intuitive interface",
+    "title_3": "Get Started",
+    "description_3": "Create an account and start exploring",
+    "skip": "Skip",
+    "get_started": "Get Started"
+  },
+  "home": {
+    "title": "Home",
+    "welcome": "Welcome, {name}!"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "language": "Language",
+    "notifications": "Notifications",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "about": "About",
+    "version": "Version",
+    "light_theme": "Light",
+    "dark_theme": "Dark",
+    "system_theme": "System"
+  },
+  "errors": {
+    "server_error": "Server error. Please try again later.",
+    "network_error": "No internet connection. Please check your network.",
+    "unknown_error": "An unexpected error occurred.",
+    "session_expired": "Session expired. Please login again."
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "app_name": "Flutter Şablon",
+  "common": {
+    "ok": "Tamam",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "back": "Geri",
+    "next": "İleri",
+    "done": "Bitti",
+    "loading": "Yükleniyor...",
+    "retry": "Tekrar Dene",
+    "error": "Hata",
+    "success": "Başarılı",
+    "warning": "Uyarı"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış Yap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirm_password": "Şifre Tekrar",
+    "forgot_password": "Şifremi Unuttum",
+    "dont_have_account": "Hesabınız yok mu?",
+    "already_have_account": "Zaten hesabınız var mı?",
+    "login_success": "Giriş başarılı",
+    "register_success": "Kayıt başarılı",
+    "logout_success": "Çıkış yapıldı"
+  },
+  "validation": {
+    "required_field": "Bu alan zorunludur",
+    "invalid_email": "Geçerli bir e-posta girin",
+    "password_too_short": "Şifre en az 6 karakter olmalı",
+    "passwords_dont_match": "Şifreler eşleşmiyor"
+  },
+  "onboarding": {
+    "title_1": "Hoş Geldiniz",
+    "description_1": "Uygulamamızın tüm özelliklerini keşfedin",
+    "title_2": "Kullanımı Kolay",
+    "description_2": "Basit ve sezgisel arayüz",
+    "title_3": "Başlayın",
+    "description_3": "Hesap oluşturun ve keşfetmeye başlayın",
+    "skip": "Atla",
+    "get_started": "Başla"
+  },
+  "home": {
+    "title": "Ana Sayfa",
+    "welcome": "Hoş geldin, {name}!"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "theme": "Tema",
+    "language": "Dil",
+    "notifications": "Bildirimler",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Şartları",
+    "about": "Hakkında",
+    "version": "Versiyon",
+    "light_theme": "Açık",
+    "dark_theme": "Koyu",
+    "system_theme": "Sistem"
+  },
+  "errors": {
+    "server_error": "Sunucu hatası. Lütfen daha sonra tekrar deneyin.",
+    "network_error": "İnternet bağlantısı yok. Lütfen ağınızı kontrol edin.",
+    "unknown_error": "Beklenmeyen bir hata oluştu.",
+    "session_expired": "Oturum süresi doldu. Lütfen tekrar giriş yapın."
+  }
+}
