@@ -19,23 +19,27 @@ class PatientCard extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.md),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundColor:
-                    context.colorScheme.primary.withValues(alpha: 0.1),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: context.colorScheme.primary.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+                ),
+                alignment: Alignment.center,
                 child: Text(
                   patient.firstName[0].toUpperCase(),
-                  style: context.textTheme.titleMedium?.copyWith(
+                  style: context.textTheme.titleSmall?.copyWith(
                     color: context.colorScheme.primary,
                   ),
                 ),
               ),
-              const SizedBox(width: AppSpacing.md),
+              const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,18 +51,18 @@ class PatientCard extends StatelessWidget {
                     if (patient.age != null || patient.gender != null)
                       Text(
                         [
-                          if (patient.age != null) '${patient.age} years',
+                          if (patient.age != null) '${patient.age} yrs',
                           if (patient.gender != null) patient.gender,
-                        ].join(' - '),
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.colorScheme.onSurface
-                              .withValues(alpha: 0.6),
-                        ),
+                        ].join(' \u00B7 '),
+                        style: context.textTheme.bodySmall,
                       ),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right),
+              Icon(
+                Icons.chevron_right,
+                color: context.colorScheme.onSurface.withValues(alpha: 0.3),
+              ),
             ],
           ),
         ),
