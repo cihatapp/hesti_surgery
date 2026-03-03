@@ -10,14 +10,12 @@ import '../../features/measurements/presentation/pages/measurements_page.dart';
 import '../../features/model_3d/presentation/pages/comparison_page.dart';
 import '../../features/model_3d/presentation/pages/model_viewer_page.dart';
 import '../../features/model_3d/presentation/pages/morphing_page.dart';
-import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/patient/presentation/pages/patient_detail_page.dart';
 import '../../features/patient/presentation/pages/patient_form_page.dart';
 import '../../features/patient/presentation/pages/patient_list_page.dart';
 import '../../features/photo_capture/presentation/pages/photo_capture_page.dart';
 import '../../features/photo_capture/presentation/pages/photo_gallery_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
-import '../../features/splash/presentation/pages/splash_page.dart';
 import '../../features/surgery_case/presentation/pages/surgery_case_detail_page.dart';
 import '../../features/surgery_case/presentation/pages/surgery_case_form_page.dart';
 
@@ -30,12 +28,8 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        // Splash & Onboarding
-        AutoRoute(page: SplashRoute.page, initial: true),
-        AutoRoute(page: OnboardingRoute.page),
-
         // Auth
-        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: LoginRoute.page, initial: true),
         AutoRoute(page: RegisterRoute.page),
 
         // Main App with Bottom Navigation (3 tabs)
