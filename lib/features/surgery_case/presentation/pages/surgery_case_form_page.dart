@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../injection_container.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
@@ -72,17 +73,14 @@ class _SurgeryCaseFormPageState extends State<SurgeryCaseFormPage> {
                     AppTextField(
                       controller: _titleController,
                       labelText: 'Case Title',
-                      prefixIcon: const Icon(Icons.title),
                       validator: (v) =>
                           v == null || v.isEmpty ? 'Required' : null,
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<String>(
-                      initialValue: _surgeryType,
+                      value: _surgeryType,
                       decoration: const InputDecoration(
                         labelText: 'Surgery Type',
-                        prefixIcon: Icon(Icons.medical_services),
-                        border: OutlineInputBorder(),
                       ),
                       items: const [
                         DropdownMenuItem(
@@ -98,44 +96,53 @@ class _SurgeryCaseFormPageState extends State<SurgeryCaseFormPage> {
                         if (v != null) setState(() => _surgeryType = v);
                       },
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     AppTextField(
                       controller: _descriptionController,
                       labelText: 'Description',
-                      prefixIcon: const Icon(Icons.description),
                       maxLines: 3,
                     ),
-                    const SizedBox(height: AppSpacing.md),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.calendar_today),
-                      title: Text(
-                        _scheduledDate != null
-                            ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year}'
-                            : 'Schedule Date (Optional)',
-                      ),
-                      trailing: const Icon(Icons.edit_calendar),
+                    const SizedBox(height: AppSpacing.lg),
+                    GestureDetector(
                       onTap: _pickScheduledDate,
+                      child: InputDecorator(
+                        decoration: const InputDecoration(
+                          labelText: 'Schedule Date (Optional)',
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _scheduledDate != null
+                                  ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year}'
+                                  : 'Select date',
+                              style: _scheduledDate != null
+                                  ? null
+                                  : TextStyle(
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                            ),
+                            Icon(
+                              Icons.calendar_today,
+                              size: 20,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     AppTextField(
                       controller: _notesController,
                       labelText: 'Surgeon Notes',
-                      prefixIcon: const Icon(Icons.notes),
                       maxLines: 3,
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    ElevatedButton(
-                      onPressed: state is SurgeryCaseLoading
-                          ? null
-                          : () => _submit(context),
-                      child: state is SurgeryCaseLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : const Text('Create Case'),
+                    AppButton.primary(
+                      text: 'Create Case',
+                      isExpanded: true,
+                      isLoading: state is SurgeryCaseLoading,
+                      onPressed: () => _submit(context),
                     ),
                   ],
                 ),

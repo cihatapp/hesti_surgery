@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../injection_container.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
@@ -75,25 +76,21 @@ class _PatientFormPageState extends State<PatientFormPage> {
                     AppTextField(
                       controller: _firstNameController,
                       labelText: 'First Name',
-                      prefixIcon: const Icon(Icons.person_outline),
                       validator: (v) =>
                           v == null || v.isEmpty ? 'Required' : null,
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     AppTextField(
                       controller: _lastNameController,
                       labelText: 'Last Name',
-                      prefixIcon: const Icon(Icons.person_outline),
                       validator: (v) =>
                           v == null || v.isEmpty ? 'Required' : null,
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     DropdownButtonFormField<String>(
-                      initialValue: _selectedGender,
+                      value: _selectedGender,
                       decoration: const InputDecoration(
                         labelText: 'Gender',
-                        prefixIcon: Icon(Icons.wc),
-                        border: OutlineInputBorder(),
                       ),
                       items: const [
                         DropdownMenuItem(value: 'male', child: Text('Male')),
@@ -103,51 +100,59 @@ class _PatientFormPageState extends State<PatientFormPage> {
                       ],
                       onChanged: (v) => setState(() => _selectedGender = v),
                     ),
-                    const SizedBox(height: AppSpacing.md),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.cake),
-                      title: Text(
-                        _dateOfBirth != null
-                            ? '${_dateOfBirth!.day}/${_dateOfBirth!.month}/${_dateOfBirth!.year}'
-                            : 'Date of Birth',
-                      ),
-                      trailing: const Icon(Icons.calendar_today),
+                    const SizedBox(height: AppSpacing.lg),
+                    GestureDetector(
                       onTap: _pickDateOfBirth,
+                      child: InputDecorator(
+                        decoration: const InputDecoration(
+                          labelText: 'Date of Birth',
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _dateOfBirth != null
+                                  ? '${_dateOfBirth!.day}/${_dateOfBirth!.month}/${_dateOfBirth!.year}'
+                                  : 'Select date',
+                              style: _dateOfBirth != null
+                                  ? null
+                                  : TextStyle(
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                            ),
+                            Icon(
+                              Icons.calendar_today,
+                              size: 20,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     AppTextField(
                       controller: _phoneController,
                       labelText: 'Phone',
-                      prefixIcon: const Icon(Icons.phone),
                       keyboardType: TextInputType.phone,
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     AppTextField(
                       controller: _emailController,
                       labelText: 'Email',
-                      prefixIcon: const Icon(Icons.email),
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.lg),
                     AppTextField(
                       controller: _notesController,
                       labelText: 'Medical Notes',
-                      prefixIcon: const Icon(Icons.notes),
                       maxLines: 3,
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    ElevatedButton(
-                      onPressed: state is PatientListLoading
-                          ? null
-                          : () => _submit(context),
-                      child: state is PatientListLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Text(isEditing ? 'Update' : 'Create'),
+                    AppButton.primary(
+                      text: isEditing ? 'Update' : 'Create',
+                      isExpanded: true,
+                      isLoading: state is PatientListLoading,
+                      onPressed: () => _submit(context),
                     ),
                   ],
                 ),
