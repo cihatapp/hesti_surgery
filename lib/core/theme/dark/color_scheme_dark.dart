@@ -9,38 +9,39 @@ class ColorSchemeDark {
   }
 
   // Primary
-  final Color primary = const Color(0xFFBB86FC);
-  final Color primaryVariant = const Color(0xFF3700B3);
-  final Color onPrimary = const Color(0xFF000000);
+  final Color primary = const Color(0xFF60A5FA);
+  final Color primaryVariant = const Color(0xFF3B82F6);
+  final Color onPrimary = const Color(0xFF0F172A);
+  final Color primaryLight = const Color(0xFF1E3A5F);
 
   // Secondary
-  final Color secondary = const Color(0xFF03DAC6);
-  final Color secondaryVariant = const Color(0xFF03DAC6);
-  final Color onSecondary = const Color(0xFF000000);
+  final Color secondary = const Color(0xFF2DD4BF);
+  final Color secondaryVariant = const Color(0xFF14B8A6);
+  final Color onSecondary = const Color(0xFF0F172A);
 
   // Background
-  final Color background = const Color(0xFF121212);
-  final Color surface = const Color(0xFF1E1E1E);
-  final Color onBackground = const Color(0xFFFFFFFF);
-  final Color onSurface = const Color(0xFFFFFFFF);
+  final Color background = const Color(0xFF0F172A);
+  final Color surface = const Color(0xFF1E293B);
+  final Color onBackground = const Color(0xFFF1F5F9);
+  final Color onSurface = const Color(0xFFF1F5F9);
 
   // Error
-  final Color error = const Color(0xFFCF6679);
-  final Color onError = const Color(0xFF000000);
+  final Color error = const Color(0xFFFCA5A5);
+  final Color onError = const Color(0xFF0F172A);
 
   // Custom colors
-  final Color cardBackground = const Color(0xFF1E1E1E);
-  final Color divider = const Color(0xFF2C2C2C);
-  final Color shimmerBase = const Color(0xFF2C2C2C);
-  final Color shimmerHighlight = const Color(0xFF3C3C3C);
+  final Color cardBackground = const Color(0xFF1E293B);
+  final Color divider = const Color(0xFF334155);
+  final Color shimmerBase = const Color(0xFF334155);
+  final Color shimmerHighlight = const Color(0xFF475569);
 
   // Text colors
-  final Color textPrimary = const Color(0xFFFFFFFF);
-  final Color textSecondary = const Color(0xFFB3B3B3);
-  final Color textHint = const Color(0xFF757575);
+  final Color textPrimary = const Color(0xFFF1F5F9);
+  final Color textSecondary = const Color(0xFF94A3B8);
+  final Color textHint = const Color(0xFF64748B);
 
   // Status colors
-  final Color success = const Color(0xFF81C784);
-  final Color warning = const Color(0xFFFFB74D);
-  final Color info = const Color(0xFF64B5F6);
+  final Color success = const Color(0xFF34D399);
+  final Color warning = const Color(0xFFFBBF24);
+  final Color info = const Color(0xFF60A5FA);
 }
