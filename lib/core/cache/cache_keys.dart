@@ -4,9 +4,6 @@ enum CacheKeys {
   refreshToken('refresh_token'),
   user('user'),
 
-  // Onboarding
-  onboardingCompleted('onboarding_completed'),
-
   // Settings
   themeMode('theme_mode'),
   locale('locale'),

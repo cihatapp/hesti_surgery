@@ -40,16 +40,6 @@ abstract class LocaleKeys {
   static const String validationPasswordTooShort = 'validation.password_too_short';
   static const String validationPasswordsDontMatch = 'validation.passwords_dont_match';
 
-  // Onboarding
-  static const String onboardingTitle1 = 'onboarding.title_1';
-  static const String onboardingDescription1 = 'onboarding.description_1';
-  static const String onboardingTitle2 = 'onboarding.title_2';
-  static const String onboardingDescription2 = 'onboarding.description_2';
-  static const String onboardingTitle3 = 'onboarding.title_3';
-  static const String onboardingDescription3 = 'onboarding.description_3';
-  static const String onboardingSkip = 'onboarding.skip';
-  static const String onboardingGetStarted = 'onboarding.get_started';
-
   // Dashboard
   static const String dashboardTitle = 'dashboard.title';
   static const String dashboardWelcome = 'dashboard.welcome';

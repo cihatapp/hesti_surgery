@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '../../config/routes/app_router.dart';
 
 enum NavigationRoute {
-  splash,
-  onboarding,
   login,
   register,
   mainNavigation,
@@ -31,10 +29,6 @@ class NavigationManager {
   // Get route by enum
   PageRouteInfo _getRoute(NavigationRoute route) {
     switch (route) {
-      case NavigationRoute.splash:
-        return const SplashRoute();
-      case NavigationRoute.onboarding:
-        return const OnboardingRoute();
       case NavigationRoute.login:
         return const LoginRoute();
       case NavigationRoute.register:
